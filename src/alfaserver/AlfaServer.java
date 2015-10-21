@@ -37,10 +37,10 @@ public class AlfaServer {
 				Socket socket = server_socket.accept();
 				System.out.println("Nova conexão aceita " + socket.getInetAddress() + ":" + socket.getPort());
 
-				// Constroi handler para processar o HTTP request.
+				// Constroi handler para processar cada HTTP request.
 				try {
 					httpRequestHandler request = new httpRequestHandler(socket);
-					// Cria uma nova thread para o processo de request.
+					// Cria uma nova thread para cada processo de request.
 					Thread thread = new Thread(request);
 
 					// Inicia a thread
@@ -162,7 +162,7 @@ class httpRequestHandler implements Runnable {
 			}
 		}
 
-		//Fecha todos as saídas.
+		// Fecha todos as saídas.
 		try {
 			output.close();
 			br.close();
@@ -172,7 +172,7 @@ class httpRequestHandler implements Runnable {
 		}
 	}
 
-	//Método para gerar os bytes do arquivo solicitado.
+	// Método para gerar os bytes do arquivo solicitado.
 	private static void sendBytes(FileInputStream fis, OutputStream os) throws Exception {
 
 		byte[] buffer = new byte[1024];
@@ -183,7 +183,7 @@ class httpRequestHandler implements Runnable {
 		}
 	}
 
-	//Método para adquirir o tipo do arquivo.
+	// Método para adquirir o tipo do arquivo.
 	private static String contentType(String fileName) {
 		if (fileName.endsWith(".htm") || fileName.endsWith(".html") || fileName.endsWith(".txt")) {
 			return "text/html";
